@@ -1,5 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect
 import csv
+import random
+import cfdict
 
 app = Flask(__name__)
 
@@ -41,3 +43,9 @@ def submit_form():
         except:
             return 'did not save to database'
     return 'something went wrong. Try again'
+
+@app.route('/test.html')
+def rand():
+    random_number = random.choice(list(cfdict.cf_work_dict))
+    random_work_load = cfdict.cf_work_dict[random_number]
+    return render_template('test.html', random_number = random_number, random_work_load=random_work_load)
